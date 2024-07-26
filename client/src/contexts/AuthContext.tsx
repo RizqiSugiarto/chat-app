@@ -1,76 +1,76 @@
-import { VITE_SERVER_URL } from "@/utils/constants";
-import { AuthContextType, LoggedInUser } from "@/utils/types";
-import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+import { VITE_SERVER_URL } from '@/utils/constants'
+import { AuthContextType, LoggedInUser } from '@/utils/types'
+import axios from 'axios'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { useLocation, useNavigate } from 'react-router-dom'
 export const AuthContext = createContext<AuthContextType>({
-  loggedInUser: { isAuthenticated: false, user: null },
-  setLoggedInUser: () => {},
-  showLoading: true,
-});
+    loggedInUser: { isAuthenticated: false, user: null },
+    setLoggedInUser: () => {},
+    showLoading: true,
+})
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const [loggedInUser, setLoggedInUser] = useState<LoggedInUser>({
-    isAuthenticated: false,
-    user: null,
-  });
+    const navigate = useNavigate()
+    const { pathname } = useLocation()
+    const [loggedInUser, setLoggedInUser] = useState<LoggedInUser>({
+        isAuthenticated: false,
+        user: null,
+    })
 
-  const [showLoading, setShowLoading] = useState<boolean>(true);
+    const [showLoading, setShowLoading] = useState<boolean>(true)
 
-  useEffect(() => {
-    const authUser = async () => {
-      setShowLoading(true);
-      const token = localStorage.getItem('access-token')
-      if (token  && typeof token === "string") {
-        try {
-          const response = await axios.get(
-            `${VITE_SERVER_URL}/auth/verifyUser`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
+    useEffect(() => {
+        const authUser = async () => {
+            setShowLoading(true)
+            const token = localStorage.getItem('access-token')
+            if (token && typeof token === 'string') {
+                try {
+                    const response = await axios.get(
+                        `${VITE_SERVER_URL}/auth/verifyUser`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        },
+                    )
+                    if (response && response?.data) {
+                        setLoggedInUser(response?.data ?? null)
+                        if (pathname === '/auth') {
+                            navigate('/')
+                        }
+                    }
+                } catch (error) {
+                    console.log(error)
+                    toast.error(
+                        error?.toString() ??
+                            'Failed to authenticate and verify user. Please try again',
+                        {
+                            style: {
+                                borderRadius: '10px',
+                                background: '#333',
+                                color: '#fff',
+                            },
+                        },
+                    )
+                    navigate('/auth')
+                }
+            } else {
+                navigate('/auth')
             }
-          );
-          if (response && response?.data) {
-            setLoggedInUser(response?.data ?? null);
-            if (pathname === "/auth") {
-              navigate("/");
-            }
-          }
-        } catch (error) {
-          console.log(error);
-          toast.error(
-            error?.toString() ??
-              "Failed to authenticate and verify user. Please try again",
-            {
-              style: {
-                borderRadius: "10px",
-                background: "#333",
-                color: "#fff",
-              },
-            }
-          );
-          navigate("/auth");
+            setShowLoading(false)
         }
-      } else {
-        navigate("/auth");
-      }
-      setShowLoading(false);
-    };
-    authUser();
-  }, [navigate, pathname]);
+        authUser()
+    }, [navigate, pathname])
 
-  return (
-    <AuthContext.Provider
-      value={{ loggedInUser, setLoggedInUser, showLoading }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
-export function useAuthContext() {
-  return useContext(AuthContext);
+    return (
+        <AuthContext.Provider
+            value={{ loggedInUser, setLoggedInUser, showLoading }}
+        >
+            {children}
+        </AuthContext.Provider>
+    )
 }
-export default AuthContextProvider;
+export function useAuthContext() {
+    return useContext(AuthContext)
+}
+export default AuthContextProvider

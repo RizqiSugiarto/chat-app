@@ -1,11 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client'
 
-export const prisma = new PrismaClient();
+export const prisma = new PrismaClient()
 prisma
-  .$connect()
-  .then(() => {
-    console.log("connected to db");
-  })
-  .catch((err) => {
-    console.log({ msg: "Error connecting to db", err });
-  });
+    .$connect()
+    .then(() => {
+        console.log('connected to db')
+    })
+    .catch((err) => {
+        console.log({ msg: 'Error connecting to db', err })
+    })

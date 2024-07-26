@@ -1,9 +1,8 @@
-import { Socket } from "socket.io";
+import { Socket } from 'socket.io'
 export const joinRoom = (socket: Socket, roomName: string) => {
-  socket.join(roomName);
-};
+    socket.join(roomName)
+}
 
 export const leaveRoom = (socket: Socket, roomName: string) => {
-  socket.leave(roomName);
-};
-
+    socket.leave(roomName)
+}

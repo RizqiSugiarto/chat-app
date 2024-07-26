@@ -1,26 +1,26 @@
-import createTheme from "@mui/material/styles/createTheme";
+import createTheme from '@mui/material/styles/createTheme'
 
 // A custom theme for this app
 export const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    text: {
-      secondary: "#fff",
+    palette: {
+        mode: 'dark',
+        text: {
+            secondary: '#fff',
+        },
+        primary: {
+            main: '#007AFF',
+        },
     },
-    primary: {
-      main: "#007AFF",
-    },
-  },
-});
+})
 export const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#007AFF",
+    palette: {
+        mode: 'light',
+        primary: {
+            main: '#007AFF',
+        },
+        text: {
+            primary: '#fff',
+            secondary: '#000',
+        },
     },
-    text: {
-      primary: "#fff",
-      secondary: "#000",
-    },
-  },
-});
+})
