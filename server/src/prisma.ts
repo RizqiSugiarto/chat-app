@@ -6,6 +6,6 @@ prisma
     .then(() => {
         console.log('connected to db')
     })
-    .catch((err) => {
+    .catch((err: any) => {
         console.log({ msg: 'Error connecting to db', err })
     })

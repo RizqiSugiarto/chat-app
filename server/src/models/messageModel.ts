@@ -50,7 +50,7 @@ export const createMessage = async (req: Request, res: Response) => {
         const members = await prisma.member.findMany({
             where: { conversationId: req?.body?.conversationId },
         })
-        members.forEach((member) => {
+        members.forEach((member: any) => {
             io.to(member?.userId).emit('newMessageInConversation', message)
         })
         return res.json(message)
