@@ -39,7 +39,6 @@ const ChatListItem = ({
                   (msg) => msg?.conversationId === conversation?.id,
               )
             : null
-
     return (
         <ListItem
             key={conversation?.id}

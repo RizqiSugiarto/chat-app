@@ -205,7 +205,6 @@ export default function ConversationContextProvider({
                 handleGetUsers()
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openCreateConversationModal, searchUserValue, handleGetUsers])
     useEffect(() => {
         if (!messagesEndRef.current || !allMessages) return

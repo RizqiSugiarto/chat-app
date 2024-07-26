@@ -80,7 +80,10 @@ export default function useAuth() {
             if (response && response?.data) {
                 localStorage.setItem('access-token', response.data.accessToken)
                 setLoggedInUser({ isAuthenticated: true, user: response?.data })
-                navigate('/')
+                if(response.status === 200) {
+                    navigate('/')
+                    window.location.reload()
+                }
             }
         } catch (error) {
             console.log(error)
