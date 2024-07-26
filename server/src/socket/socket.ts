@@ -13,7 +13,6 @@ const io = new Server(server, {
   },
 });
 
-// socket admin ui only for development
 instrument(io, {
   auth: false,
   mode: "development",

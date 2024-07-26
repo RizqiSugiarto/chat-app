@@ -5,8 +5,6 @@ import { io } from "../socket/socket.js";
 export const createConversation = async (req: Request, res: Response) => {
   const type = req?.body?.type;
   const members = req?.body?.members;
-  console.log(members, "INI MEMBER")
-  console.log(type, "INI TYPE")
   try {
     const conversation = await prisma.conversation.create({
       data: {
