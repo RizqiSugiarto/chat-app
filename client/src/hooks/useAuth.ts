@@ -81,7 +81,6 @@ export default function useAuth() {
                 localStorage.setItem('access-token', response.data.accessToken)
                 setLoggedInUser({ isAuthenticated: true, user: response?.data })
                 if(response.status === 200) {
-                    navigate('/')
                     window.location.reload()
                 }
             }
