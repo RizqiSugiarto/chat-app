@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import { PORT, COMPLETE_URL, CLIENT_URL, NODE_ENV } from './constants.js'
+import { PORT, CLIENT_URL, NODE_ENV } from './constants.js'
 import bodyParser from 'body-parser'
 import conversationRouter from './controllers/conversationControllers.js'
 import messageRouter from './controllers/messageController.js'
@@ -46,5 +46,5 @@ if (NODE_ENV === 'production') {
     })
 }
 server.listen(PORT, () => {
-    console.log(`server running at ${COMPLETE_URL}`)
+    console.log(`server running at ${PORT} mode ${NODE_ENV}`)
 })
