@@ -33,7 +33,6 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
               }
             }
           );
-          console.log(response.data,"DAPET KOK BEBS")
           if (response && response?.data) {
             setLoggedInUser(response?.data ?? null);
             if (pathname === "/auth") {

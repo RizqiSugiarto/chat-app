@@ -12,7 +12,6 @@ const ChatListItems = () => {
     handleResetNewMessagesInConversation,
   } = useConversationContext()!;
 
-  // Function to remove duplicates based on the conversation ID
   const getUniqueConversations = (conversations: Conversation[]) => {
     const seen = new Set<string>();
     return conversations.filter(conversation => {
@@ -22,7 +21,6 @@ const ChatListItems = () => {
     });
   };
 
-  // Get unique conversations
   const uniqueConversations = getUniqueConversations(conversations);
 
   if (uniqueConversations.length > 0) {

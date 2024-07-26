@@ -10,6 +10,5 @@ export const getAllUsers = async (searchUserValue?: string) => {
       search: searchUserValue,
     },
   });
-  console.log(response, "HASILNYA")
   return response?.data ?? [];
 };

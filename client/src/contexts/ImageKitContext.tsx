@@ -3,7 +3,6 @@ import { IKUpload } from "imagekitio-react";
 import React, { createContext, useContext, useRef, useState } from "react";
 import toast from "react-hot-toast";
 export const ImageKitContext = createContext<{
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ikUploadRef: any | null;
   uploadImgLoading: boolean;
   setUploadImgLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,7 +44,6 @@ const ImageKitContextProvider = ({
       <IKUpload
         ref={ikUploadRef}
         style={{ display: "none" }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onSuccess={(data: any) => {
           setFileUrl(data?.url);
           setFileId(data?.fileId);
