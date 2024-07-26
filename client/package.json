@@ -1,0 +1,50 @@
+{
+  "name": "pern-chat-client",
+  "version": "0.0.0",
+  "type": "module",
+  "repository": {
+    "url": "git@github.com:kaushalluffa/pern-chat-client.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
+  },
+  "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/base": "^5.0.0-beta.37",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/material": "^5.15.14",
+    "@vitejs/plugin-react": "^4.2.1",
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.10",
+    "emoji-mart": "^5.5.2",
+    "imagekitio-react": "^4.0.0",
+    "jwt-decode": "^4.0.0",
+    "react": "^18",
+    "react-cookie": "^7.1.4",
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.22.3",
+    "socket.io-client": "^4.7.5"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.70",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.8"
+  }
+}
