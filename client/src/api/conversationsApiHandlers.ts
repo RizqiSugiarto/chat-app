@@ -8,6 +8,7 @@ export const createConversation = async (data: {
   groupTitle?: string;
   isGroup?: boolean;
 }) => {
+  console.log(data, "DARI DEPAN")
   const response = await authFetchHandler({
     endPoint: SERVER_ENDPOINTS.CONVERSATION.CREATE,
     method: "POST",

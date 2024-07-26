@@ -1,15 +1,12 @@
 import { userLogin, userSignup } from "@/api/authApiHandlers";
 import { SignupData } from "@/utils/types";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useAllContextHooks";
 
 export default function useAuth() {
   const navigate = useNavigate();
-  //eslint-disable-next-line
-  const [cookies, _, removeCookie] = useCookies(["token"]);
   const [loading, setLoading] = useState<"login" | "signup" | null>(null);
   const { setLoggedInUser } = useAuthContext();
   const [tabValue, setTabValue] = useState<number>(0);
@@ -78,6 +75,7 @@ export default function useAuth() {
     try {
       const response = await userLogin(loginData);
       if (response && response?.data) {
+        localStorage.setItem('access-token', response.data.accessToken)
         setLoggedInUser({ isAuthenticated: true, user: response?.data });
         navigate("/");
       }
@@ -94,7 +92,8 @@ export default function useAuth() {
     setLoading(null);
   }
   async function logout() {
-    await removeCookie("token");
+    localStorage.clear();
+    navigate('/auth')
   }
 
   return {

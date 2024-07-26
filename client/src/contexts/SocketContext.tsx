@@ -1,26 +1,24 @@
 import { VITE_SERVER_URL } from "@/utils/constants";
 import { SocketContextType } from "@/utils/types";
 import React, { createContext, useEffect, useMemo, useState } from "react";
-import { useCookies } from "react-cookie";
 import { Socket, io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuthContext } from "@/hooks/useAllContextHooks";
 
 export const SocketContext = createContext<SocketContextType | null>(null);
+
 const SocketContextProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [cookies] = useCookies(["token"]);
   const { loggedInUser } = useAuthContext()!;
-  const memoizedCookies = useMemo(() => {
-    return cookies;
-  }, [cookies]);
+  const token = useMemo(() => localStorage.getItem("access-token"), []);
+
   useEffect(() => {
-    if (memoizedCookies?.token) {
+    if (token) {
       try {
         const socketInstance = io(VITE_SERVER_URL, {
-          auth: { token: memoizedCookies?.token },
+          auth: { token },
         });
         if (socketInstance) {
           setSocket(socketInstance);
@@ -40,15 +38,17 @@ const SocketContextProvider = ({ children }: { children: React.ReactNode }) => {
         navigate("/auth");
       }
     }
-  }, [memoizedCookies, navigate]);
-
+  }, [token, navigate]);
+  
   useEffect(() => {
+    console.log(loggedInUser.user?.id, "DAPET NYA GINI")
     if (
       socket &&
       loggedInUser &&
       loggedInUser?.isAuthenticated &&
       loggedInUser?.user
     ) {
+      console.log(loggedInUser.user, "GINI CAH")
       socket.on("connect", () => {
         return socket.emit("connectedUser", loggedInUser?.user?.id);
       });
@@ -61,6 +61,7 @@ const SocketContextProvider = ({ children }: { children: React.ReactNode }) => {
       };
     }
   }, [socket, loggedInUser]);
+
   return (
     <SocketContext.Provider value={{ socket }}>
       {children}

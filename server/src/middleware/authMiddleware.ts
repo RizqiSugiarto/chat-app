@@ -6,7 +6,7 @@ export default async function authMiddleware(
   res: Response,
   next: any
 ) {
-  const token = req?.cookies?.token ?? null;
+  const token = req?.headers.authorization?.split(" ")[1];
   let verifiedToken;
   try {
     if (token) {

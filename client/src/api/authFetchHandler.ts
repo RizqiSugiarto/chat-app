@@ -12,11 +12,18 @@ export default async function authFetchHandler<T>({
   data: T;
 }) {
   const url = `${VITE_SERVER_URL}/${endPoint}`;
+  
+  // Retrieve the token from localStorage
+  const token = localStorage.getItem("access-token");
+  
   const options: AxiosRequestConfig<T> = {
-    withCredentials: true,
     method: method || "GET",
     data,
+    headers: {
+      Authorization: `Bearer ${token}`, 
+    },
   };
+
   try {
     const response = await axios(url, options);
     return response;

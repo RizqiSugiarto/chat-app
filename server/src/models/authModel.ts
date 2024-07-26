@@ -69,13 +69,8 @@ export const login = async (req: Request, res: Response) => {
       if (!isPasswordValid) {
         return res.json({ message: "Invalid password" });
       }
-      console.log(NODE_ENV, "DAPET GINI")
-      res.cookie("token", await generateToken(existingUser), {
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-        secure: NODE_ENV === 'production',
-        sameSite: NODE_ENV !== "dev" ? "none" : "lax",
-        httpOnly: false,
-      });
+      
+      const tokenJwt = await generateToken(existingUser)
       return res.json({
         message: "Logged in successfully",
         user: {
@@ -84,6 +79,7 @@ export const login = async (req: Request, res: Response) => {
           name: existingUser?.name,
           imageUrl: existingUser?.imageUrl,
         },
+        accessToken: tokenJwt
       });
     }
   } catch (error) {
@@ -92,9 +88,9 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 export const verifyUser = async (req: Request, res: Response) => {
-  const cookies = req?.cookies;
-  if (cookies?.token) {
-    const decodedToken: any = jwt.verify(cookies.token, JWT_SECRET_KEY);
+  const token = req?.headers.authorization?.split(" ")[1];
+  if (token) {
+    const decodedToken: any = jwt.verify(token, JWT_SECRET_KEY);
     if (!decodedToken) {
       return res.redirect(CLIENT_AUTH_URL as string);
     }

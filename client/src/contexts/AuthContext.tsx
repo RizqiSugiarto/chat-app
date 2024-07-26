@@ -2,7 +2,6 @@ import { VITE_SERVER_URL } from "@/utils/constants";
 import { AuthContextType, LoggedInUser } from "@/utils/types";
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 export const AuthContext = createContext<AuthContextType>({
@@ -13,7 +12,6 @@ export const AuthContext = createContext<AuthContextType>({
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [cookies] = useCookies(["token"]);
   const [loggedInUser, setLoggedInUser] = useState<LoggedInUser>({
     isAuthenticated: false,
     user: null,
@@ -24,18 +22,18 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const authUser = async () => {
       setShowLoading(true);
-      console.log("SINI KENA KOK")
-      console.log(cookies.token, "SINI")
-      if (cookies && cookies?.token && typeof cookies?.token === "string") {
-        console.log(cookies);
-
+      const token = localStorage.getItem('access-token')
+      if (token  && typeof token === "string") {
         try {
           const response = await axios.get(
             `${VITE_SERVER_URL}/auth/verifyUser`,
             {
-              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
             }
           );
+          console.log(response.data,"DAPET KOK BEBS")
           if (response && response?.data) {
             setLoggedInUser(response?.data ?? null);
             if (pathname === "/auth") {
@@ -63,7 +61,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       setShowLoading(false);
     };
     authUser();
-  }, [cookies, navigate, pathname]);
+  }, [navigate, pathname]);
 
   return (
     <AuthContext.Provider

@@ -33,7 +33,6 @@ io.use(ioMiddleware).on("connection", (socket) => {
   });
 });
 app.use("/auth", authController);
-//protected routes
 app.use("/users", authMiddleware, usersController);
 app.use("/conversation", authMiddleware, conversationRouter);
 app.use("/message", authMiddleware, messageRouter);

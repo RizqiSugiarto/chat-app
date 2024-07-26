@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { prisma } from "../prisma.js";
 import { io } from "../socket/socket.js";
+
 export const createConversation = async (req: Request, res: Response) => {
   const type = req?.body?.type;
   const members = req?.body?.members;
+  console.log(members, "INI MEMBER")
+  console.log(type, "INI TYPE")
   try {
     const conversation = await prisma.conversation.create({
       data: {
@@ -25,6 +28,7 @@ export const createConversation = async (req: Request, res: Response) => {
     return res.json({ error: error?.toString() });
   }
 };
+
 export const getConversations = async (req: Request, res: Response) => {
   const userId = req?.user?.id;
   const searchValue = req?.body?.searchValue;

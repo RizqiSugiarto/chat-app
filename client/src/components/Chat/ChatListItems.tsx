@@ -11,25 +11,36 @@ const ChatListItems = () => {
     newMessagesInConversations,
     handleResetNewMessagesInConversation,
   } = useConversationContext()!;
-  if (
-    conversations &&
-    Array.isArray(conversations) &&
-    conversations?.length > 0
-  ) {
-    return conversations?.map((conversation: Conversation) => {
-      return (
-        <ChatListItem
-          key={conversation?.id}
-          conversation={conversation}
-          currentConversation={currentConversation}
-          handleResetNewMessagesInConversation={
-            handleResetNewMessagesInConversation
-          }
-          newMessagesInConversations={newMessagesInConversations}
-        />
-      );
+
+  // Function to remove duplicates based on the conversation ID
+  const getUniqueConversations = (conversations: Conversation[]) => {
+    const seen = new Set<string>();
+    return conversations.filter(conversation => {
+      const duplicate = seen.has(conversation.id);
+      seen.add(conversation.id);
+      return !duplicate;
     });
+  };
+
+  // Get unique conversations
+  const uniqueConversations = getUniqueConversations(conversations);
+
+  if (uniqueConversations.length > 0) {
+    return (
+      <div>
+        {uniqueConversations.map((conversation: Conversation) => (
+          <ChatListItem
+            key={conversation.id}
+            conversation={conversation}
+            currentConversation={currentConversation}
+            handleResetNewMessagesInConversation={handleResetNewMessagesInConversation}
+            newMessagesInConversations={newMessagesInConversations}
+          />
+        ))}
+      </div>
+    );
   }
+
   return <NoDataAvailable message="No chats found" />;
 };
 
