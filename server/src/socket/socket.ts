@@ -7,7 +7,7 @@ const app = express()
 const server = createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: ['https://admin.socket.io/', process.env.CLIENT_URL!],
+        origin: ['https://simplechatapps.netlify.app'],
         methods: ['GET', 'POST'],
     },
 })
