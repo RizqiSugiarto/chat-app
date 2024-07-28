@@ -17,8 +17,7 @@ import express from 'express'
 dotenv.config()
 const __dirname = path.resolve()
 const corsOptions = {
-    origin: CLIENT_URL,
-    credentials: true,
+    origin: "https://simplechatapps.netlify.app",
 }
 
 app.use(cookieParser())
