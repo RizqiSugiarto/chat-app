@@ -2,9 +2,7 @@
     "name": "pern-chat-client",
     "version": "0.0.0",
     "type": "module",
-    "repository": {
-        "url": "git@github.com:kaushalluffa/pern-chat-client.git"
-    },
+
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",

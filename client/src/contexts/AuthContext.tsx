@@ -60,7 +60,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
             setShowLoading(false)
         }
         authUser()
-    }, [navigate, pathname])
+    }, [loggedInUser,navigate, pathname])
 
     return (
         <AuthContext.Provider
