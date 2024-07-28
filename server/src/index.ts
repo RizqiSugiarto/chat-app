@@ -16,12 +16,20 @@ import path from 'path'
 import express from 'express'
 dotenv.config()
 const __dirname = path.resolve()
-const corsOptions = {
-    origin: "https://simplechatapps.netlify.app/auth, https://simplechatapps.netlify.app/auth/login",
-}
 
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
+    if (!origin || origin.startsWith('https://simplechatapps.netlify.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'), false);
+    }
+  },
+  methods: ['GET', 'POST'],
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser())
-app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 // io middleware auth
