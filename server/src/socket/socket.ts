@@ -5,12 +5,22 @@ import { instrument } from '@socket.io/admin-ui'
 
 const app = express()
 const server = createServer(app)
-const io = new Server(server, {
-    cors: {
-        origin: ['https://simplechatapps.netlify.app'],
-        methods: ['GET', 'POST'],
+
+const corsOptions = {
+    origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
+      if (!origin || origin.startsWith('https://simplechatapps.netlify.app')) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'), false);
+      }
     },
-})
+    methods: ['GET', 'POST'],
+    credentials: true,
+  };
+  
+  const io = new Server(server, {
+    cors: corsOptions,
+  });
 
 instrument(io, {
     auth: false,
