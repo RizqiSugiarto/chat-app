@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY . .
-RUN npx prisma generate  
+RUN npm run prisma:updateSchema  
 RUN npm run build
 
 FROM node:16-alpine

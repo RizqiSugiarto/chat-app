@@ -2,13 +2,14 @@ import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'node:http'
 import { instrument } from '@socket.io/admin-ui'
+import { CLIENT_URL } from '../constants.js'
 
 const app = express()
 const server = createServer(app)
 
 const corsOptions = {
     origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
-      if (!origin || origin.startsWith('https://simplechatapps.netlify.app')) {
+      if (!origin || origin.startsWith(CLIENT_URL)) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'), false);

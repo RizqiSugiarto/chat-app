@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import { PORT, NODE_ENV } from './constants.js'
+import { PORT, CLIENT_URL,NODE_ENV } from './constants.js'
 import bodyParser from 'body-parser'
 import conversationRouter from './controllers/conversationControllers.js'
 import messageRouter from './controllers/messageController.js'
@@ -19,7 +19,7 @@ const __dirname = path.resolve()
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
-    if (!origin || origin.startsWith('https://simplechatapps.netlify.app')) {
+    if (!origin || origin.startsWith(CLIENT_URL!)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'), false);
