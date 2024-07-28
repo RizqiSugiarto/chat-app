@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import { PORT, CLIENT_URL, NODE_ENV } from './constants.js'
+import { PORT, NODE_ENV } from './constants.js'
 import bodyParser from 'body-parser'
 import conversationRouter from './controllers/conversationControllers.js'
 import messageRouter from './controllers/messageController.js'
