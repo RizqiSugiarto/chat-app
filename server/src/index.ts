@@ -38,7 +38,7 @@ app.use('/conversation', authMiddleware, conversationRouter)
 app.use('/message', authMiddleware, messageRouter)
 app.use('/img-kit', imageKitAuthController)
 if (NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '/pern-chat-client/dist')))
+    app.use(express.static(path.join(__dirname, '/client/dist')))
     app.get('*', (_req, res) => {
         res.sendFile(
             path.resolve(__dirname, 'pern-chat-client', 'dist', 'index.html'),
