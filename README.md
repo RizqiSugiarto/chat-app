@@ -38,9 +38,9 @@ A modern chat web app using React, Node.js, Express, TypeScript, Prisma, and Mat
    
 ### Server
 
-1. **Navigate to the client directory:**
+1. **Navigate to the server directory:**
    ```bash
-   cd client
+   cd server
 
 2. **Change .env.example to .env:**
    ```bash
