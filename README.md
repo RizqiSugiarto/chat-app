@@ -24,26 +24,32 @@ A modern chat web app using React, Node.js, Express, TypeScript, Prisma, and Mat
    ```bash
    cd client
 
-2. **Install dependencies:**
+2. **Change .env.example to .env:**
+   ```bash
+   cp .env.example .env
+
+3. **Install dependencies:**
    ```bash
    npm install
 
-
-3. **Start the development server:**
+4. **Start the development server:**
    ```bash
    npm start
-
+   
 ### Server
 
 1. **Navigate to the client directory:**
    ```bash
    cd client
 
-2. **Install dependencies:**
+2. **Change .env.example to .env:**
+   ```bash
+   cp .env.example .env
+
+3. **Install dependencies:**
    ```bash
    npm install
 
-
-3. **Start the development server:**
+4. **Start the development server:**
    ```bash
    npm start
